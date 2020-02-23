@@ -1,0 +1,28 @@
+diff -ur cle_orig/backends/elf/elf.py cle_patched/backends/elf/elf.py
+--- cle_orig/backends/elf/elf.py	2020-02-20 19:40:41.943891525 +0100
++++ cle_patched/backends/elf/elf.py	2019-11-25 18:00:17.207520504 +0100
+@@ -716,8 +716,10 @@
+                 if align > 0:
+                     new_addr = (new_addr + (align - 1)) // align * align
+ 
+-                remap_offset = new_addr - sh_addr
+-                new_addr += sec_readelf.header['sh_size']    # address for next section
++                #remap_offset = new_addr - sh_addr  #original!
++                remap_offset = sh_addr - new_addr
++
++                #new_addr += sec_readelf.header['sh_size']    # address for next section
+ 
+             section = ELFSection(sec_readelf, remap_offset=remap_offset)
+             sec_list.append((sec_readelf, section))
+diff -ur cle_orig/backends/elf/regions.py cle_patched/backends/elf/regions.py
+--- cle_orig/backends/elf/regions.py	2020-02-20 19:40:41.943891525 +0100
++++ cle_patched/backends/elf/regions.py	2019-11-25 17:50:59.087510026 +0100
+@@ -39,7 +39,7 @@
+         super(ELFSection, self).__init__(
+             maybedecode(readelf_sec.name),
+             readelf_sec.header.sh_offset,
+-            readelf_sec.header.sh_addr + remap_offset,
++            readelf_sec.header.sh_addr,# + remap_offset,    #EDITED!!!
+             readelf_sec.header.sh_size
+         )
+ 

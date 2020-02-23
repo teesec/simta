@@ -1,0 +1,6 @@
+*.bin
+*.so
+*.pyc
+*pycache*
+*idea*
+example*
