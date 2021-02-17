@@ -39,7 +39,7 @@ pyelftools==0.25
 Pygments==2.4.2
 pylint==2.4.4
 PySMT==0.8.0
-rpyc==4.1.0
+rpyc==4.1.1
 six==1.12.0
 smmap2==2.0.5
 sortedcontainers==2.1.0
